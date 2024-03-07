@@ -8,7 +8,6 @@
         #board{
             display: flex;
             flex-wrap: wrap;
-            width: 500px;
         }
         .square{
             box-sizing: border-box;
@@ -37,15 +36,17 @@
 
     <script>
         var board = document.getElementById("board");
-        var length = 10;
+        var length = 5;
 
-        var mineCount = 10;
+        board.style.width = length * 50 + "px";
+
+        var mineCount = 5;
 
         var sayilar = new Array(100).fill(0);
 
         var minePositions = [];
         for(var i = 0;i<mineCount;i++){
-            var randomNum = Math.floor(Math.random() * 100);
+            var randomNum = Math.floor(Math.random() * length * length);
             minePositions.push(randomNum);
         }
 
