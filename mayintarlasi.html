@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #board{
+            display: flex;
+            flex-wrap: wrap;
+            width: 500px;
+        }
+        .square{
+            box-sizing: border-box;
+            width: 50px;
+            height: 50px;
+            border: 1px solid black;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif;
+        }
+        .mine{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="board">
+
+    </div>
+
+
+
+
+    <script>
+        var board = document.getElementById("board");
+        var length = 10;
+
+        var mineCount = 10;
+
+        var sayilar = new Array(100).fill(0);
+
+        var minePositions = [];
+        for(var i = 0;i<mineCount;i++){
+            var randomNum = Math.floor(Math.random() * 100);
+            minePositions.push(randomNum);
+        }
+
+        for(var i = 0;i<length * length;i++){
+            var div = document.createElement("div");
+            div.classList.add("square");
+            
+            // sol
+            if(minePositions.includes(i+1) && (i+1)%length != 0 && !minePositions.includes(i)){
+                // div.style.backgroundColor = "blue";
+                sayilar[i] += 1;
+            }
+
+            // sağ
+            if(minePositions.includes(i-1) && (i-1)%length != length-1 && !minePositions.includes(i)){
+                // div.style.backgroundColor = "green";
+                sayilar[i] += 1;
+            }
+
+            //alt
+            if(minePositions.includes(i-length) && (i-length)<=length * length - length - 1 && !minePositions.includes(i)){
+                // div.style.backgroundColor = "pink";
+                sayilar[i] += 1;
+            }
+
+            //üst
+            if(minePositions.includes(i+length) && (i+length)>=length && !minePositions.includes(i)){
+                // div.style.backgroundColor = "yellow";
+                sayilar[i] += 1;
+            }
+
+            //sol üst
+            if(minePositions.includes(i+length + 1) && (i+length + 1)>=length && (i+length+1)%length != 0 && !minePositions.includes(i)){
+                // div.style.backgroundColor = "yellow";
+                sayilar[i] += 1;
+            }
+
+            //sağ üst
+            if(minePositions.includes(i+length - 1) && (i+length - 1)>=length && (i+length-1)%length != length-1 && !minePositions.includes(i)){
+                // div.style.backgroundColor = "grey";
+                sayilar[i] += 1;
+            }
+
+            //sol alt
+            if(minePositions.includes(i-length + 1) && (i-length + 1)<=length * length - length - 1 && (i-length+1)%length != 0 && !minePositions.includes(i)){
+                // div.style.backgroundColor = "purple";
+                sayilar[i] += 1;
+            }
+
+            //sag alt
+            if(minePositions.includes(i-length - 1) && (i-length - 1)<=length * length - length - 1 && (i-length-1)%length != length-1 && !minePositions.includes(i)){
+                // div.style.backgroundColor = "purple";
+                sayilar[i] += 1;
+            }
+
+            div.innerText = sayilar[i] != 0 ? sayilar[i] : "";
+
+            if(minePositions.includes(i)){
+                div.classList.add("mine");
+            }
+
+            board.appendChild(div);
+        }
+    </script>
+
+
+
+</body>
+</html>
